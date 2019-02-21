@@ -1,0 +1,41 @@
+####Load File
+y <- read_excel("C:/Users/Joaquim/Downloads/Fishprice_EU.xls")
+
+#View a file
+head(y)
+tail(y)
+
+
+#set a Time Series
+fish_ind <- ts(y[,3], start=2006, frequency=52)
+head(fish_ind)
+tail(fish_ind)
+
+#view a plot
+ts.plot(fish_ind)
+
+###simple forecasting methods
+library(forecast)
+
+#Mean next 20 weeks
+mean_fish <- meanf(fish_ind,h=20)
+autoplot(mean_fish)
+mean_fish 
+
+#Naive
+naive_fish1 <- naive(fish_ind,h=20)
+autoplot(naive_fish1)
+naive_fish1
+
+#Seasonal naive
+snaive_fish1 <- snaive(fish_ind,h=20)
+autoplot(snaive_fish1)
+snaive_fish1
+
+#Drift
+dr_fish1 <- rwf(fish_ind,drift=TRUE,h=20)
+autoplot(dr_fish1)
+dr_fish1
+
+
+### To be continued  soon.....
